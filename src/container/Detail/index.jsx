@@ -32,7 +32,7 @@ const Detail = () => {
       onOk: async ()=> {
         const { data } = await post('/api/bill/delete', { id })
         Toast.show('删除成功')
-        history.goBack()
+        history.back()
       }
     })
   }
