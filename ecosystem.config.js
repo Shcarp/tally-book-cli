@@ -12,7 +12,7 @@ module.exports = {
       ref: 'origin/main',
       repo: 'git@github.com:sh-2020/tally-book-cli.git',
       path: '~/workspace/tally-book',
-      'post-deploy': 'git reset --hard && git checkout main && git pull && npm i --production=false && npm run build:release && pm2 startOrReload ecosystem.config.js', // -production=false 下载全量包
+      'post-deploy': 'git reset --hard && git checkout main && git pull && npm i --production=false && npm run build && pm2 startOrReload ecosystem.config.js', // -production=false 下载全量包
       env: {
         NODE_ENV: 'production'
       }
