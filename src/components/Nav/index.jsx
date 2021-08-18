@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom';
-import { TabBar } from 'zarm';
+import { TabBar, Toast } from 'zarm';
 import s from './style.model.less'
 import CustomIcon from '../CustomIcon';
 
@@ -9,6 +9,11 @@ const NavBar = (showNav) => {
   const [activeKey, setActiveKey] = useState('/');
   const history = useHistory()
   const changeTab = (path) => {
+    const token = localStorage.getItem('token')
+    if (!token) {
+      Toast.show('请先登录')
+      return
+    }
     setActiveKey(path)
     history.push(path)
   }
