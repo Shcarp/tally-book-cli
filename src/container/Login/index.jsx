@@ -5,10 +5,10 @@ import CustomIcon from '@/components/CustomIcon';
 import s from './style.module.less'
 import Captcha from 'react-captcha-code'
 import {post,checkUser,checkPwd} from '@/utils'
+import useForm from "./hooks/useForm"
 import cx from 'classnames'
 const Login = () => {
-  const [ username, setUsername ] = useState('')
-  const [ password, setPassword ] = useState('')
+  const [ values, setValue ] = useForm(null)
   const [ verify, setVerify ] = useState('')
   const [ captcha, setCaptcha ] = useState('') // 验证码变化后存储值
   const [ agree, setAgree ] = useState(false)
@@ -17,11 +17,11 @@ const Login = () => {
     setCaptcha(captcha)
   })
   const onSubmit = async ()=> {
-    if (!username) {
+    if (!values.username) {
       Toast.show('请输入账号')
       return
     }
-    if (!password) {
+    if (!values.password) {
       Toast.show('请输入密码')
       return
     }
@@ -30,8 +30,8 @@ const Login = () => {
       if (type == 'login') {
         // 执行登录接口，获取 token
         const { data } = await post('/api/user/login', {
-          username,
-          password
+          username: values.username,
+          password: values.password
         });
         // 将 token 写入 localStorage
         localStorage.setItem('token', data.token);
@@ -46,11 +46,11 @@ const Login = () => {
           Toast.show('验证码错误')
           return
         };
-        if (checkUser(username) === 0) return
-        if (checkPwd(password) === 0) return
+        if (checkUser(values.username) === 0) return
+        if (checkPwd(values.password) === 0) return
         const { data } = await post('/api/user/register', {
-          username,
-          password
+          username: values.username,
+          password: values.password
         });
         Toast.show('注册成功');
         // 注册成功，自动将 tab 切换到 login 状态
@@ -72,7 +72,7 @@ const Login = () => {
           clearable
           type="text"
           placeholder="请输入账号"
-          onChange={(value)=>setUsername(value)}
+          onChange={(value)=>setValue('username' ,value)}
         />
       </Cell>
       <Cell icon={<CustomIcon type="mima" />}>
@@ -80,7 +80,7 @@ const Login = () => {
           clearable
           type="password"
           placeholder="请输入密码"
-          onChange={(value)=>setPassword(value)}
+          onChange={(value)=>setValue('password' , value)}
         />
       </Cell>
       {

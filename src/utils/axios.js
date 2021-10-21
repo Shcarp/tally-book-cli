@@ -7,6 +7,7 @@ axios.defaults.baseURL = MODE == 'development' ? '' : 'http://staineds.com:7001'
 // 
 axios.defaults.withCredentials = true
 // 配置请求头
+axios.defaults.headers['Accept-Encoding'] = 'gzip'
 axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
 axios.defaults.headers['Authorization'] = `${localStorage.getItem('token') || null}`
 axios.defaults.headers.post['Content-Type'] = 'application/json'
