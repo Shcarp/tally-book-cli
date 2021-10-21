@@ -7,7 +7,7 @@ module.exports = {
   ],
   deploy: {
     production: {
-      user: 'ubuntu',
+      user: 'root',
       host: '1.117.56.86',
       ref: 'origin/main',
       repo: 'git@github.com:sh-2020/tally-book-cli.git',

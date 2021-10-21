@@ -12,7 +12,7 @@ import zhCN from 'zarm/lib/config-provider/locale/zh_CN'
 import routes from '@/router'
 
 function App() {
-  const location = useLocation()
+  // const location = useLocation()
   const { pathname } = location
   const needNav = ['/','/data','/user']
   const [showNav, setShowNav] = useState(false)

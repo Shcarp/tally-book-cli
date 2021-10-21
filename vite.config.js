@@ -35,7 +35,8 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: path =>path.replace(/^\/api/, '')
       }
-    }
+    },
+    // https: true
   },
   resolve: {
     alias: {
