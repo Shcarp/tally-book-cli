@@ -3,11 +3,9 @@ import NavBar from './components/Nav'
 import {
   Switch,
   Route,
-  useLocation
 } from "react-router-dom"
 
 import { ConfigProvider } from 'zarm'
-import zhCN from 'zarm/lib/config-provider/locale/zh_CN'
 
 import routes from '@/router'
 

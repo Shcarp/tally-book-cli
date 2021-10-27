@@ -1,10 +1,24 @@
 import axios from "./axios";
 import { baseUrl } from 'config'
 import { Toast } from "zarm";
+import ExpireCache from './ItemCache'
+
 const MODE = import.meta.env.MODE // 环境变量
 export const get = axios.get
 
 export const post = axios.post
+
+export const E = ExpireCache
+
+const generateKeyError = new Error("Can't generate key from name and argument")
+
+export const generateKey = function (name, ...args) {
+  try {
+    return `${name}:${args.join('_')}`
+  } catch (error) {
+    return generateKeyError
+  }
+}
 
 export const typeMap = {
     1: {

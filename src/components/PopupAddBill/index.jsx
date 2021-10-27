@@ -5,7 +5,8 @@ import dayjs from 'dayjs'
 import PopupDate from '../PopupDate'
 import { Icon, Popup, Keyboard, Input, Toast } from 'zarm'
 import CustomIcon from '../CustomIcon'
-import { get,typeMap,post } from '@/utils'
+import { get,typeMap,post,E, generateKey } from '@/utils'
+const cache_key = generateKey('type', 'list')
 const PopupAddBill = forwardRef(({detail, onReload}, ref) =>{
   const [show, setShow] = useState(false)
   const [payType, setPayType] = useState('expense')
@@ -31,7 +32,14 @@ const PopupAddBill = forwardRef(({detail, onReload}, ref) =>{
     }
   }, [detail])
   useEffect(async () => {
-    const { data } = await get ('/api/type/list')
+    let data
+    if (!E.has(cache_key)) {
+      let { data: res } = await get('/api/type/list')
+      data = res
+      E.set(cache_key, res)
+    }else {
+      data = E.get(cache_key)
+    }
     const _expense = data.filter(i=>i.type ==1) 
     const _income = data.filter(i => i.type == 2)
     setExpense(_expense)

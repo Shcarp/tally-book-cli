@@ -3,11 +3,13 @@ import { Icon, Pull,  } from 'zarm'
 import s from './style.module.less'
 import BillItem from '@/components/BillItem'
 import dayjs from 'dayjs'
-import { get, REFRESH_STATE, LOAD_STATE} from '@/utils'
+import { get, REFRESH_STATE, LOAD_STATE, E, generateKey} from '@/utils'
 import PopupType from '@/components/PopupType'
 import CustomIcon from '@/components/CustomIcon'
 import PopupDate from '@/components/PopupDate'
 import PopupAddBill from '@/components/PopupAddBill'
+
+
 const Home = () => {
   const typeRef = useRef()
   const dateRef = useRef()
@@ -29,6 +31,7 @@ const Home = () => {
 
   const getBillList = async ()=>{
     const { data } = await get(`/api/bill/list?page=${page}&page_size=5&date=${currentTime}&type_id=${currentSelect.id || 'all' }`)
+    
     if(page === 1) {
       setList(data.list);
     } else {

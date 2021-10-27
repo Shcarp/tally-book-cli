@@ -3,7 +3,7 @@ import Header from '@/components/Header';
 import CustomIcon from '@/components/CustomIcon';
 import qs from 'query-string'
 import { useLocation } from 'react-router-dom';
-import { get, typeMap, post } from '@/utils'
+import { get, typeMap, post, E, generateKey } from '@/utils'
 import classes from 'classnames'
 import dayjs from 'dayjs'
 import s from './style.module.less';

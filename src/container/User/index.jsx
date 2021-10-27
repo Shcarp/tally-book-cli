@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom';
-import { get,imgUrlTrans } from '@/utils'
+import { get,imgUrlTrans, E, generateKey } from '@/utils'
 import s from './style.module.less'
 import { Cell,Button } from 'zarm'
 
+const InfoKey = generateKey('user', 'Info')
 
 const User = () => {
   const [user, setUser] = useState({})
@@ -12,8 +13,14 @@ const User = () => {
     getUserInfo();
   },[])
   const getUserInfo = async () => {
-    const { data } = await get('/api/user/getInfo')
-    setUser(data)
+    let data = E.get(InfoKey)
+    if (!data) {
+      const { data } = await get('/api/user/getInfo')
+      E.set(InfoKey, data)
+      setUser(data)
+    }else {
+      setUser(data)
+    }
   }
   const logout = async () => {
     localStorage.removeItem('token');

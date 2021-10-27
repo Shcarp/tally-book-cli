@@ -3,8 +3,8 @@ import React, { forwardRef, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Popup, Icon } from 'zarm'
 import classes from 'classnames'
-import { get } from '@/utils'
-
+import { get, E, generateKey } from '@/utils'
+const cache_key = generateKey('type', 'list')
 import s from './style.module.less'
 // 拿到父组件传入的ref属性 方便控制
 const PopupType = forwardRef(({onSelect}, ref) => {
@@ -13,7 +13,14 @@ const PopupType = forwardRef(({onSelect}, ref) => {
   const [ expense, setExpense ] = useState([])
   const [ income, setIncome ] = useState([])
   useEffect(async ()=> {
-    const { data } = await get('/api/type/list')
+    let data
+    if (!E.has(cache_key)) {
+      let { data: res } = await get('/api/type/list')
+      data = res
+      E.set(cache_key, res)
+    }else {
+      data = E.get(cache_key)
+    }
     setExpense(data.filter(i=>i.type === 1))
     setIncome(data.filter(i=>i.type === 2))
   },[])

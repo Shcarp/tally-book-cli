@@ -3,9 +3,12 @@ import { useHistory } from 'react-router-dom'
 import Header from '@/components/Header'; // 由于是内页，使用到公用头部
 import axios from 'axios'; // // 由于采用 form-data 传递参数，所以直接只用 axios 进行请求
 import { Button, FilePicker, Toast, Input } from 'zarm'
-import {get, post , imgUrlTrans} from '@/utils'
+import {get, post , imgUrlTrans, E, generateKey} from '@/utils'
 import { baseUrl } from 'config';  // 由于直接使用 axios 进行请求，统一封装了请求 baseUrl
+
 import s from './style.module.less'
+const InfoKey = generateKey('user', 'Info')
+
 const UserInfo = () =>{
   const history = useHistory
   const [user, setUser] = useState({})
@@ -18,8 +21,14 @@ const UserInfo = () =>{
   }, [])
 
   const getUserInfo = async () => {
-    const { data } = await get('/api/user/getInfo')
-    setUser(data)
+    let data = E.get(InfoKey)
+    if (!data) {
+      const { data } = await get('/api/user/getInfo')
+      E.set(InfoKey, data)
+      setUser(data)
+    }else {
+      setUser(data)
+    }
     setAvatar(imgUrlTrans(data.avatar))
     setSignature(data.signature)
   }
@@ -46,6 +55,7 @@ const UserInfo = () =>{
       signature,
       avatar
     })
+    E.set(InfoKey, data)
     Toast.show('修改成功')
     history.goBack()
   }
