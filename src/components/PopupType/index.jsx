@@ -13,6 +13,9 @@ const PopupType = forwardRef(({onSelect}, ref) => {
   const [ expense, setExpense ] = useState([])
   const [ income, setIncome ] = useState([])
   useEffect(async ()=> {
+    if (!show) {
+      return
+    } 
     let data
     if (!E.has(cache_key)) {
       let { data: res } = await get('/api/type/list')
@@ -23,7 +26,7 @@ const PopupType = forwardRef(({onSelect}, ref) => {
     }
     setExpense(data.filter(i=>i.type === 1))
     setIncome(data.filter(i=>i.type === 2))
-  },[])
+  },[show])
   if (ref) {
     ref.current = {
       show: () => {

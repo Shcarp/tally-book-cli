@@ -4,10 +4,11 @@ import 'lib-flexible/flexible'
 import './index.css'
 import App from './App'
 import { Route,BrowserRouter as Router, } from 'react-router-dom'
-
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker
-  .register('/src/sw.js')
+  .register('/sw.js', {
+    scope: '/'
+  })
   .then(()=>{
     console.log('Service worker registered')
   })

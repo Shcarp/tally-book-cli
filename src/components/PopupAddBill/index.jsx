@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useEffect, useRef } from 'react'
+import React, { forwardRef, useState, useEffect, useRef, useCallback } from 'react'
 import classes from 'classnames'
 import s from './style.module.less'
 import dayjs from 'dayjs'
@@ -32,6 +32,7 @@ const PopupAddBill = forwardRef(({detail, onReload}, ref) =>{
     }
   }, [detail])
   useEffect(async () => {
+    if (!show) return
     let data
     if (!E.has(cache_key)) {
       let { data: res } = await get('/api/type/list')
@@ -47,13 +48,15 @@ const PopupAddBill = forwardRef(({detail, onReload}, ref) =>{
     if (!id) {
       setCurrentType(_expense[0])
     }
-  },[])
+  },[show])
   const changeType = (type) =>{
     setPayType(type)
   }
-  const selectDate = (val)=> {
-    setDate(val)
-  }
+  const selectDate =useCallback(
+    (val)=> {
+      setDate(val)
+    }
+  ) 
   const handleMoney = (value)=>{
     value = String(value)
     if (value === 'delete') {

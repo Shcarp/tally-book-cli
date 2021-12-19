@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Icon, Pull,  } from 'zarm'
 import s from './style.module.less'
 import BillItem from '@/components/BillItem'
@@ -62,40 +62,42 @@ const Home = () => {
     setLoading(LOAD_STATE.success);
     setRefreshing(REFRESH_STATE.success)
   } 
-  const refreshData = ()=>{
+  const refreshData = useCallback(()=>{
     setRefreshing(REFRESH_STATE.loading)
     if(page !== 1) {
       setPage(1)
     }else {
       getBillList();
     }
-  }
-  const loadData = ()=> {
+  }, [page]) 
+  const loadData =useCallback(()=> {
     if(page < totalPage) {
       setLoading(LOAD_STATE.loading)
       setPage(page+1)
     }
-  }
+  },[page]) 
   const toggle = () => {
     typeRef.current && typeRef.current.show()
   }
-  const select = (item) => {
-    setRefreshing(REFRESH_STATE.loading);
-    // 触发刷新列表，将分页重制为 1
-    setPage(1);
-    setCurrentSelect(item)
-  }
+  const select =useCallback(()=>{
+    (item) => {
+      setRefreshing(REFRESH_STATE.loading);
+      // 触发刷新列表，将分页重制为 1
+      setPage(1);
+      setCurrentSelect(item)
+    }
+  })
   const monthToggle = () => {
     dateRef.current && dateRef.current.show()
   }
-  const selectMonth = (item) => {
+  const selectMonth = useCallback((item) => {
     if (item == currentTime) {
       return
     }
     setRefreshing(REFRESH_STATE.loading);
     setPage(1);
     setCurrentTime(item)
-  }
+  }, [currentTime]) 
   const addToggle = ()=>{
     addRef.current && addRef.current.show()
   }

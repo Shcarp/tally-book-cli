@@ -13,7 +13,7 @@ export default defineConfig({
           esModule: true,
           resolveStyle: (name)=> {
             return `zarm/es/${name}/style/css`;
-          }
+          },
         }
       ]
     }
