@@ -27,5 +27,3 @@ axios.interceptors.response.use(res => {
 })
 
 export default axios
-
-
