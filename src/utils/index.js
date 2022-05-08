@@ -20,6 +20,7 @@ export const generateKey = function (name, ...args) {
   }
 }
 
+
 export const typeMap = {
     1: {
       icon: 'canyin'
