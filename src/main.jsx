@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import 'lib-flexible/flexible'
 import './index.css'
 import App from './App'
-import { Route,BrowserRouter as Router, } from 'react-router-dom'
+import { Route, BrowserRouter as Router, } from 'react-router-dom'
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker
