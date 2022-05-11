@@ -6,6 +6,15 @@ import Detail from '@/container/Detail'
 import UserInfo from "@/container/UserInfo"
 import Account from '@/container/Account'
 import About from '@/container/About'
+
+// const SuspenseComponent = Component => props => {
+//   return (
+//     <Suspense fallback={null}>
+//       <Component {...props}></Component>
+//     </Suspense>
+//   )
+// }
+
 const routes = [
   {
     path: '/',
@@ -17,27 +26,27 @@ const routes = [
   },
   {
     path: '/user',
-    component: User
+    component:  User
   },
   {
     path:'/login',
-    component: Login
+    component:  Login
   },
   {
     path: '/detail',
-    component: Detail
+    component:  Detail
   },
   {
     path: '/userinfo',
-    component: UserInfo
+    component:  UserInfo
   },
   {
     path: '/account',
-    component: Account
+    component:  Account
   },
   {
     path: '/about',
-    component: About
+    component:  About
   }
 ];
 

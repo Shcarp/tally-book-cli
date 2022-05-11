@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import reactRefresh from '@vitejs/plugin-react-refresh'
 import styleImport from 'vite-plugin-style-import'
 import path from 'path'
+import dynamicImportVars from '@rollup/plugin-dynamic-import-vars'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -31,7 +32,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://staineds.com:7001/api/',
+        target: 'http://127.0.0.1:7001/api/',
         changeOrigin: true,
         rewrite: path =>path.replace(/^\/api/, '')
       }
@@ -44,5 +45,12 @@ export default defineConfig({
       'utils': path.resolve(__dirname, 'src/utils'),
       'config': path.resolve(__dirname, 'src/config') 
     }
+  },
+  build: {
+    rollupOptions: {
+      plugins: [
+        dynamicImportVars()
+      ],
+    },
   },
 })

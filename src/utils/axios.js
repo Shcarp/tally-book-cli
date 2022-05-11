@@ -3,7 +3,7 @@ import { Toast } from "zarm";
 
 const MODE = import.meta.env.MODE
 // 设置基础路径
-axios.defaults.baseURL = MODE == 'development' ? '' : 'http://staineds.com:7001'
+axios.defaults.baseURL = MODE == 'development' ? '' : 'http://liangyuan.shop:7001'
 // 
 axios.defaults.withCredentials = true
 // 配置请求头
