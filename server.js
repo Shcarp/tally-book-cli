@@ -3,7 +3,7 @@ const compression = require ('compression')
 const history = require('connect-history-api-fallback')
 const path = require('path')
 // 端口可以自己定义
-const port = process.env.PORT || 8010;
+const port = process.env.PORT || 80;
 const app = express ()
 // 开启 gzip 压缩
 app.use (compression ())
